@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import dashboard
+from .views import dashboard_view, chat_view, notebook_view
 
 urlpatterns = [
-    path('dashboard', dashboard, name='dashboard'),
-    path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard', dashboard_view, name='dashboard'),
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('chat/', chat_view, name='chat'),
+    path('notebook/', notebook_view, name='notebook'),
 ]

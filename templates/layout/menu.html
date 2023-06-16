@@ -1,0 +1,15 @@
+<ul>
+  <li>
+    <a
+      href="{% url 'dashboard' %}"
+      class="{% if page == 'dashboard' %}active{% endif %}"
+      >dashboard</a
+    >
+  </li>
+  <li>
+    <a href="{% url 'chat' %}" class="">chat</a>
+  </li>
+  <li>
+    <a href="{% url 'notebook' %}" class="">notebook</a>
+  </li>
+</ul>

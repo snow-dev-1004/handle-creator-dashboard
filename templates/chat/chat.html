@@ -1,0 +1,53 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block title %} Home Page {% endblock %} {% block content %}
+{% comment %} <link rel="stylesheet" href="{% static 'chat/style.css' %}" /> {% endcomment %}
+<div class="">
+  {% include 'layout/menu.html' with page='chat' %}
+  <h1 class="display-4">
+    Welcome, {{ user.first_name.title|default:'Guest' }} {{ user.last_name.title|default:'Guest' }}
+  </h1>
+  <div class="chat-wrapper">
+    <div class="chat-header">
+      <h1>Chatbot</h1>
+    </div>
+    <div class="chat-body">
+      <div class="message-container">
+        {% for chat in chats %}
+        <p class="{% if chat.sender == 0 %}user{% endif %}">{{ chat.message }}</p>
+        {% endfor %}
+      </div>
+      <div class="input-container">
+        <textarea
+          id="message"
+          placeholder="Type your message here..."
+          spellcheck="false"
+        ></textarea>
+        <button id="send" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4" />
+  <p class="lead"></p>
+
+  <script>
+    function sendMessage() {
+      let text = document.querySelector("#message").value;
+      console.log(text);
+      let data = new FormData();
+      data.append("message", text);
+      data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+
+      axios
+        .post("{% url 'chat' %}", data) // 4
+        .then((res) => {
+          console.log(res.data.message);
+          $(".message-container")[0].innerHTML = $(".message-container")[0].innerHTML + res.data.data;
+        }) // 5
+        .catch((errors) => console.log(errors)); // 6
+    }
+  </script>
+</div>
+{% endblock %}
