@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("account.urls")),
+    path('', include("chat.urls")),
     
     path('<path:unknown_path>', TemplateView.as_view(template_name='system/404.html'), name='404'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
