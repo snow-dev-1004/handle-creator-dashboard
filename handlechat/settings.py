@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
-    'chat'
+    'chat',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -137,7 +138,7 @@ STATICFILES_DIRS=[
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = '/dashboard'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = 'login'
 
 # Default primary key field type
@@ -147,6 +148,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TAILWINDCSS_CLI_FILE = os.path.join(BASE_DIR,'tailwindcss-linux-x64')
 TAILWINDCSS_CONFIG_FILE = os.path.join(BASE_DIR,'tailwind.config.js')
+
+COMPRESS_ROOT = os.path.join(BASE_DIR,'static')
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 # For file mode
 TAILWINDCSS_OUTPUT_FILE = 'style.css'

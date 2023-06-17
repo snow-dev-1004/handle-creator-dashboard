@@ -3,34 +3,34 @@
 
 
 {% block title %} Home Page {% endblock %} {% block content %}
-{% comment %} <link rel="stylesheet" href="{% static 'chat/style.css' %}" /> {% endcomment %}
-<div class="">
+
+<div class="d-flex">
   {% include 'layout/menu.html' with page='chat' %}
-  <h1 class="display-4">
-    Welcome, {{ user.first_name.title|default:'Guest' }} {{ user.last_name.title|default:'Guest' }}
-  </h1>
-  <div class="chat-wrapper">
-    <div class="chat-header">
-      <h1>Chatbot</h1>
-    </div>
-    <div class="chat-body">
-      <div class="message-container">
-        {% for chat in chats %}
-        <p class="{% if chat.sender == 0 %}user{% endif %}">{{ chat.message }}</p>
-        {% endfor %}
+  <div class="main-container">
+    <h1 class="display-4">
+      Welcome, {{ user.first_name.title|default:'Guest' }} {{ user.last_name.title|default:'Guest' }}
+    </h1>
+    <div class="chat-wrapper">
+      <div class="chat-header">
+        <h1>Chatbot</h1>
       </div>
-      <div class="input-container">
-        <textarea
-          id="message"
-          placeholder="Type your message here..."
-          spellcheck="false"
-        ></textarea>
-        <button id="send" onclick="sendMessage()">Send</button>
+      <div class="chat-body">
+        <div class="message-container">
+          {% for chat in chats %}
+          <p class="{% if chat.sender == 0 %}user{% endif %}">{{ chat.message }}</p>
+          {% endfor %}
+        </div>
+        <div class="input-container">
+          <textarea
+            id="message"
+            placeholder="Type your message here..."
+            spellcheck="false"
+          ></textarea>
+          <button id="send" onclick="sendMessage()">Send</button>
+        </div>
       </div>
     </div>
   </div>
-  <hr class="my-4" />
-  <p class="lead"></p>
 
   <script>
     function sendMessage() {

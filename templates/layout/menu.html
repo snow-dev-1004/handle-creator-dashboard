@@ -1,15 +1,17 @@
-<ul>
+{% load static %}
+<link href="{% static 'css/menu.css' %}" rel="stylesheet" />
+<ul class="menu-container">
   <li>
     <a
       href="{% url 'dashboard' %}"
       class="{% if page == 'dashboard' %}active{% endif %}"
-      >dashboard</a
+      >Dashboard</a
     >
   </li>
   <li>
-    <a href="{% url 'chat' %}" class="">chat</a>
+    <a href="{% url 'chat' %}" class="">Message</a>
   </li>
   <li>
-    <a href="{% url 'notebook' %}" class="">notebook</a>
+    <a href="{% url 'notebook' %}" class="">Note</a>
   </li>
 </ul>

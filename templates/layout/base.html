@@ -7,7 +7,7 @@
   </head>
   <body>
     <main>
-      {% include 'layout/navbar.html' %}
+      {% include 'layout/navbar.html' with header='header' %}
 
       <!--Any flash messages pop up in any page because this is the base template-->
       {% if messages %}

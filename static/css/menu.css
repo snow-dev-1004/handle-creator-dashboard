@@ -1,0 +1,20 @@
+.menu-container {
+    width: 200px;
+    background-color: var(--custom-btn-bg-color);
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-container li {
+    padding: 10px 16px;
+    background-color: var(--primary-color);
+}
+
+.menu-container li a {
+    color: white;
+}
+
+.menu-container li:hover {
+    background-color: var(--link-hover-color);
+}

@@ -2,7 +2,7 @@
   <div class="container">
     <a class="navbar-brand" href="{% url 'home' %}">
       <i class="navbar-brand-icon bi-book me-2"></i>
-      <span>Handle</span>
+      <span>Handle {{ header }} </span>
     </a>
 
     {% comment %}
@@ -34,29 +34,30 @@
       <ul class="navbar-nav ms-lg-auto me-lg-4">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link click-scroll" href="{% url 'home' %}">Home</a>
+          <a class="nav-link nav-home" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="nav-link nav-dashboard" href="{% url 'dashboard' %}">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'chat' %}">Message</a>
+          <a class="nav-link nav-chat" href="{% url 'chat' %}">Message</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'notebook' %}">Note</a>
+          <a class="nav-link nav-notebook" href="{% url 'notebook' %}">Note</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <a class="nav-link nav-logout" href="{% url 'logout' %}">Logout</a>
         </li>
         {% else %}
 
         <li class="nav-item">
-          <a class="nav-link click-scroll" href="{% url 'login' %}">Sign in</a>
+          <a class="nav-link" href="{% url 'login' %}">Sign in</a>
         </li>
         {% endif %}
       </ul>
 
-      {% comment %} <div class="d-none d-lg-block">
+      {% comment %}
+      <div class="d-none d-lg-block">
         <a
           href="#"
           class="btn custom-btn custom-border-btn btn-naira btn-inverted"
@@ -65,7 +66,12 @@
           <span>Download</span
           ><!-- duplicated above one for mobile -->
         </a>
-      </div> {% endcomment %}
+      </div>
+      {% endcomment %}
     </div>
   </div>
 </nav>
+
+{% load static %}
+
+<script src="{% static 'js/navbar.js' %}"></script>
