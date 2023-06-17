@@ -10,18 +10,20 @@ $(document).ready(function () {
     }
   });
 
-	$("#note-content").on('input', function (e) {
-		lastUpdatedTime = Date.now();
+  $("#note-content").on("input", function (e) {
+    lastUpdatedTime = Date.now();
 
-		setTimeout(async () => {
-			let deft = Date.now() - lastUpdatedTime;
-			if (deft > 1000) {
-				let data = new FormData();
-				data.append('content', e.target.value);
-				axios.post('/note', data, (res) => {
-					console.log(res);
-				})
-			}
-		}, 1000);
-	})
+    setTimeout(async () => {
+      let deft = Date.now() - lastUpdatedTime;
+      if (deft > 1000) {
+        let data = new FormData();
+        let csrfToken = $("[name='csrfmiddlewaretoken']").val();
+        data.append("content", e.target.value);
+        data.append("csrfmiddlewaretoken", csrfToken);
+        axios.post("/notebook/", data, (res) => {
+          console.log(res);
+        });
+      }
+    }, 1000);
+  });
 });

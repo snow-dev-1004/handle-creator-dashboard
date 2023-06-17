@@ -9,7 +9,7 @@
 <div class="main-wrap d-flex">
   {% include 'layout/menu.html' with page='notebook' %}
   <div class="main-container note-container">
-    <textarea id="note-content">Hi</textarea>
+    <textarea id="note-content">{{ note.message }}</textarea>
   </div>
 </div>
 

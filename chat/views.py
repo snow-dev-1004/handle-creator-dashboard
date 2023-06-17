@@ -10,7 +10,7 @@ def dashboard_view(request):
 
 @login_required
 def chat_view(request):
-    message = request.POST.get('message')
+    # message = request.POST.get('message')
     if request.method=='POST': 
         ai_message = generate_response(message)
         
@@ -34,6 +34,16 @@ def chat_view(request):
 
 @login_required
 def notebook_view(request):
-    # if request.method=='POST': 
-        
-    return render(request, 'chat/notebook.html')
+    notebook = models.Note.objects.filter(user=request.user.id).first()
+    if request.method=='POST': 
+        content = request.POST.get('content')
+        if notebook:
+            notebook.message = content
+            notebook.save()
+        else:
+            notebook = models.Note(message=content,user=request.user)
+            notebook.save()
+    
+    return render(request, 'chat/notebook.html', {
+        'note': notebook
+    })
