@@ -1,3 +1,7 @@
+.main-wrap {
+  height: calc(100vh - 88px);
+}
+
 .main-container {
-    
+  overflow-y: auto;
 }
