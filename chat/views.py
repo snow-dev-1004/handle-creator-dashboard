@@ -11,6 +11,7 @@ def dashboard_view(request):
 @login_required
 def chat_view(request):
     if request.method=='POST': 
+        message = request.POST.get('message')
         ai_message = generate_response(message)
         
         new_user_chat = models.Chat(message=message,sender=0,user=request.user)
