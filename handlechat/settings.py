@@ -151,8 +151,16 @@ TAILWINDCSS_CLI_FILE = os.path.join(BASE_DIR,'tailwindcss-linux-x64')
 TAILWINDCSS_CONFIG_FILE = os.path.join(BASE_DIR,'tailwind.config.js')
 
 COMPRESS_ROOT = os.path.join(BASE_DIR,'static')
-COMPRESS_ENABLED = True
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+# COMPRESS_ENABLED = True
+# COMPRESS_OFFLINE = True
+# COMPRESS_PRECOMPILERS = (
+#     ('text/x-scss', 'sass {infile} {outfile}'),
+# )
+STATICFILES_FINDERS = (
+    # 'django.contrib.staticfiles.finders.FileSystemFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
 
 # For file mode
 TAILWINDCSS_OUTPUT_FILE = 'style.css'

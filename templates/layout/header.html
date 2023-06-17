@@ -1,3 +1,5 @@
+{% comment %} {% load compress %} {% endcomment %}
+
 {% comment %} {% load tailwindcss %} {% endcomment %} {% load static %}
 <head>
   <!-- Required meta tags -->
@@ -15,16 +17,6 @@
   />
 
   {% comment %} {% tailwindcss %} {% endcomment %}
-
-  <!-- Bootstrap CSS -->
-  {% comment %}
-  <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous"
-  />
-  {% endcomment %}
 
   {% csrf_token %}
   <link
@@ -44,6 +36,10 @@
     href="{% static 'css/main.css' %}"
     rel="stylesheet"
   />
+
+  {% comment %} {% compress css %}
+    <link rel="stylesheet" href="{% static 'css/styles.scss' %}" type="text/x-scss">
+  {% endcompress %} {% endcomment %}
 
   <script
     src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

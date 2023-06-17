@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
@@ -59,6 +60,14 @@ class CustomLoginView(LoginView):
 
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
+
+
+@login_required
+def CustomLogout(request):
+    print('Loggin out {}'.format(request.user))
+    logout(request)
+    print(request.user)
+    return redirect('/')
 
 
 @login_required
