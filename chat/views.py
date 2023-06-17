@@ -10,7 +10,6 @@ def dashboard_view(request):
 
 @login_required
 def chat_view(request):
-    # message = request.POST.get('message')
     if request.method=='POST': 
         ai_message = generate_response(message)
         
@@ -28,8 +27,10 @@ def chat_view(request):
     chats = models.Chat.objects.filter(user=request.user.id).order_by("-datetime")[:3]
     chat_list = list(chats)
     sorted_chats = sorted(chat_list, key=lambda chat: chat.datetime)
+    notebook = models.Note.objects.filter(user=request.user.id).first()
     return render(request, 'chat/chat.html', {
-        'chats': sorted_chats
+        'chats': sorted_chats,
+        'note': notebook
     })
 
 @login_required

@@ -17,7 +17,7 @@
             <i class="fas fa-comment-alt"></i> Welcome, 
             {{ user.first_name.title|default:'Guest' }} {{ user.last_name.title|default:'Guest' }}
           </div>
-          <div class="msger-header-options">
+          <div class="msger-header-options note-panel-open-btn">
             <span><i class="bi-caret-left-fill"></i></span>
           </div>
         </header>
@@ -66,11 +66,16 @@
     </div>
 
     <div class="note-panel">
-      <textarea>{{ note.message }}</textarea>
+      <button class="note-panel-close-btn">
+        <span><i class="bi-caret-right-fill"></i></span>
+      </button>
+      <p class="note-panel-header">Notebook</p>
+      <textarea id="note-content">{{ note.message }}</textarea>
     </div>
   </div>
 
   <script src="{% static 'js/chat.js' %}"></script>
+  <script src="{% static 'js/note.js' %}"></script>
   <script>
     let userFirstName = "{{ user.first_name.title }}";
   </script>

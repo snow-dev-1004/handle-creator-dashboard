@@ -1,5 +1,4 @@
-let lastUpdatedTime = Date.now(),
-  loading = false;
+let loading = false;
 
 $(document).ready(function () {
   const chatScrollTop = () => {
@@ -94,5 +93,12 @@ $(document).ready(function () {
         sendMessage();
       }
     }
+  });
+
+  $('.note-panel-open-btn').click(function () {
+    $('.note-panel').toggleClass('open');
+  });
+  $('.note-panel-close-btn').click(function () {
+    $('.note-panel').toggleClass('open');
   });
 });

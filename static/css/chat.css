@@ -8,6 +8,8 @@
 
 .chat-container {
   position: relative;
+  width: calc(100vw - 200px);
+  overflow: hidden;
 }
 
 .chat-container .chat-wrapper {
@@ -201,16 +203,47 @@
   height: 100%;
   width: 200px;
   top: 0px;
-  right: 0px;
+  right: -250px;
   position: absolute;
-  background-color: var(--primary-color);
-  padding: 4px;
+  background-color: #fff9bf;
+  padding: 14px;
+  transition: all 0.3s;
+}
+
+.chat-container .note-panel.open {
+  right: 0px;
+}
+
+.chat-container .note-panel .note-panel-header {
+  margin: 5px 0px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--primary-color);
+  text-align: center;
 }
 
 .chat-container .note-panel textarea {
   width: 100%;
-  height: calc(100% - 2px);
+  height: calc(100% - 35px);
   outline: none;
   border: none;
   resize: none;
+  background: transparent;
+}
+
+.chat-container .note-panel .note-panel-close-btn {
+  position: absolute;
+  left: -24px;
+  top: 0px;
+  border: none;
+  outline: none;
+  padding: 0px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color);
+  border-radius: 4px 0px 0px 4px;
+  color: white;
 }
