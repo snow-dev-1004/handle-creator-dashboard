@@ -24,7 +24,7 @@ def chat_view(request):
             "data": ai_message
         })
         
-    chats = models.Chat.objects.filter(user=request.user.id).order_by("-datetime")[:3]
+    chats = models.Chat.objects.filter(user=request.user.id).order_by("-datetime")
     chat_list = list(chats)
     sorted_chats = sorted(chat_list, key=lambda chat: chat.datetime)
     notebook = models.Note.objects.filter(user=request.user.id).first()
