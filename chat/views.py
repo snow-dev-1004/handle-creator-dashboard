@@ -26,10 +26,14 @@ def chat_view(request):
         })
         
     chats = models.Chat.objects.filter(user=request.user.id).order_by("-datetime")[:3]
+    chat_list = list(chats)
+    sorted_chats = sorted(chat_list, key=lambda chat: chat.datetime)
     return render(request, 'chat/chat.html', {
-        'chats': chats
+        'chats': sorted_chats
     })
 
 @login_required
 def notebook_view(request):
+    # if request.method=='POST': 
+        
     return render(request, 'chat/notebook.html')

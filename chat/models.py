@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Chat(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='message')
     message = models.TextField()
-    sender = models.PositiveIntegerField(null=False)
+    sender = models.PositiveIntegerField(null=False) # 0: ownder, 1: bot
     datetime = models.DateTimeField(auto_now=True)
    
     @property

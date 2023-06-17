@@ -1,8 +1,12 @@
 .menu-wrap {
   min-width: 200px;
+  width: 200px;
   height: 100;
   /* background-color: #0f0c05; */
-  background-color: rgba(0, 0, 0, 0.9)!important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu-container {
@@ -32,11 +36,11 @@
   transition: color 0.2s, color 0.2s;
 }
 
-.menu-container li a:hover, .menu-container li a.active {
+.menu-container li a:hover,
+.menu-container li a.active {
   background-color: #c3583d;
 }
 
-.menu-wrap>image {
-
-    width: 200px;
+.menu-wrap > img {
+  width: 100%;
 }

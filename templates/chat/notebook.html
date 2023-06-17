@@ -1,17 +1,17 @@
 {% extends 'layout/base.html' %}
+{% load static %}
 
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
+<link href="{% static 'css/note.css' %}" rel="stylesheet" />
+
 <div class="main-wrap d-flex">
   {% include 'layout/menu.html' with page='notebook' %}
-  <div class="main-container">
-    <h1 class="display-4">
-      Welcome, {{ user.first_name.title|default:'Guest' }}
-    </h1>
-    <p class="lead">This is notebook page.</p>
-    <hr class="my-4" />
-    <p class="lead"></p>
+  <div class="main-container note-container">
+    <textarea id="note-content">Hi</textarea>
   </div>
 </div>
+
+<script src="{% static 'js/note.js' %}"></script>
 {% endblock %}

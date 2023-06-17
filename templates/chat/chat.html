@@ -1,52 +1,74 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load humanize %}
+{% block title %} Home Page {% endblock %}
 
-{% block title %} Home Page {% endblock %} {% block content %}
+{% block content %}
+
+<link href="{% static 'css/chat.css' %}" rel="stylesheet" />
 
 <div class="main-wrap d-flex">
   {% include 'layout/menu.html' with page='chat' %}
-  <div class="main-container">
-    <h1 class="display-4">
-      Welcome, {{ user.first_name.title|default:'Guest' }} {{ user.last_name.title|default:'Guest' }}
-    </h1>
+  <div class="main-container chat-container">
     <div class="chat-wrapper">
-      <div class="chat-header">
-        <h1>Chatbot</h1>
-      </div>
-      <div class="chat-body">
-        <div class="message-container">
+      <section class="msger">
+        <header class="msger-header">
+          <div class="msger-header-title">
+            <i class="fas fa-comment-alt"></i> Welcome, 
+            {{ user.first_name.title|default:'Guest' }} {{ user.last_name.title|default:'Guest' }}
+          </div>
+          <div class="msger-header-options">
+            <span><i class="bi-caret-left-fill"></i></span>
+          </div>
+        </header>
+
+        <main class="msger-chat">
           {% for chat in chats %}
-          <p class="{% if chat.sender == 0 %}user{% endif %}">{{ chat.message }}</p>
+            <div class="msg {% if chat.sender == 1 %}left{% else %}right{% endif %}-msg">
+              <div
+                class="msg-img"
+                style="
+                  background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);
+                "
+              ></div>
+
+              <div class="msg-bubble">
+                <div class="msg-info">
+                  <div class="msg-info-name">{% if chat.sender == 1 %}Handle Bot{% else %}{{ user.first_name.title }}{% endif %}</div>
+                  <div class="msg-info-time">{{ chat.datetime|naturaltime }}</div>
+                </div>
+
+                <div class="msg-text">
+                  {{ chat.message }}
+                </div>
+              </div>
+            </div>
           {% endfor %}
+        </main>
+
+        <div class="msger-inputarea">
+          <div
+            contenteditable="true"
+            role="textbox"
+            dir="auto"
+            type="text"
+            class="msger-input"
+            placeholder="Enter your message..."
+          ></div>
+          <div class="msger-send-btn-wrap">
+            <span class="msger-send-loader loader d-none"></span>
+            <button class="msger-send-btn">
+              <i class="bi-arrow-right-circle"></i>
+            </button>
+          </div>
         </div>
-        <div class="input-container">
-          <textarea
-            id="message"
-            placeholder="Type your message here..."
-            spellcheck="false"
-          ></textarea>
-          <button id="send" onclick="sendMessage()">Send</button>
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 
+  <script src="{% static 'js/chat.js' %}"></script>
   <script>
-    function sendMessage() {
-      let text = document.querySelector("#message").value;
-      console.log(text);
-      let data = new FormData();
-      data.append("message", text);
-      data.append("csrfmiddlewaretoken", "{{csrf_token}}");
-
-      axios
-        .post("{% url 'chat' %}", data) // 4
-        .then((res) => {
-          console.log(res.data.message);
-          $(".message-container")[0].innerHTML = $(".message-container")[0].innerHTML + res.data.data;
-        }) // 5
-        .catch((errors) => console.log(errors)); // 6
-    }
+    let userFirstName = "{{ user.first_name.title }}";
   </script>
 </div>
 {% endblock %}
