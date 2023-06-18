@@ -7,7 +7,12 @@ $(document).ready(function () {
 
   const sendMessage = () => {
     let text = $(".msger-input").val();
+    let csrfToken = $("[name='csrfmiddlewaretoken']").val();
+
+    let data = new FormData();
     text = text.replaceAll("<br>", "\n");
+    data.append("message", text);
+    data.append("csrfmiddlewaretoken", csrfToken);
     if (text.trim() == "") {
       Toastify({
         text: "Please input the correct question",
@@ -22,15 +27,7 @@ $(document).ready(function () {
       return;
     }
 
-    $(".msger-input").val("");
-    loading = true;
-    $(".msger-send-loader").toggleClass("d-none");
-    $(".msger-send-btn").toggleClass("d-none");
-
-    let csrfToken = $("[name='csrfmiddlewaretoken']").val();
-    let data = new FormData();
-    data.append("message", text);
-    data.append("csrfmiddlewaretoken", csrfToken);
+    text = text.replaceAll("\n", "<br>");
     let ownerMessageTemplate = `
     	<div class="msg right-msg">
     		<div
@@ -50,15 +47,22 @@ $(document).ready(function () {
     		</div>
     	</div>`;
     $(".msger-chat").append(ownerMessageTemplate);
+    loading = true;
+    $(".msger-send-loader").toggleClass("d-none");
+    $(".msger-send-btn").toggleClass("d-none");
+
+    $(".msger-input").val("");
     chatScrollTop();
 
     axios
       .post("/chat/", data)
-      .then((res) => {
+      .then(async (res) => {
         loading = false;
+        let msgId = Date.now();
+        let responseText = res.data.data;
 
         let botMessageTemplate = `
-    			<div class="msg left-msg">
+    			<div class="msg left-msg msg-${msgId}">
     				<div
     					class="msg-img"
     					style="
@@ -70,15 +74,26 @@ $(document).ready(function () {
     						<div class="msg-info-name">Handle bot</div>
     						<div class="msg-info-time">Just now</div>
     					</div>
-    					<div class="msg-text">
-    						${res.data.data}
-    					</div>
+    					<div class="msg-text"></div>
     				</div>
     			</div>`;
         $(".msger-chat").append(botMessageTemplate);
-        chatScrollTop();
-        $(".msger-send-loader").toggleClass("d-none");
-        $(".msger-send-btn").toggleClass("d-none");
+
+        let loopId = 0;
+        let displayHandle = setInterval(() => {
+          let prev = $(".msg-" + msgId)
+            .find(".msg-text")
+            .html();
+          $(".msg-" + msgId)
+            .find(".msg-text")
+            .html(prev + responseText[loopId]);
+          chatScrollTop();
+          if (++loopId == responseText.length) {
+            clearInterval(displayHandle);
+            $(".msger-send-loader").toggleClass("d-none");
+            $(".msger-send-btn").toggleClass("d-none");
+          }
+        }, 10);
       })
       .catch((errors) => {});
   };
@@ -88,17 +103,21 @@ $(document).ready(function () {
     sendMessage();
   });
   $(document).on("keydown", (e) => {
-    if (e.ctrlKey && e.keyCode == 13) {
+    if ((e.ctrlKey && e.keyCode == 13) || (e.keyCode == 13 && !e.shiftKey )) {
       if ($(".msger-input").is(":focus")) {
         sendMessage();
       }
     }
   });
 
-  $('.note-panel-open-btn').click(function () {
-    $('.note-panel').toggleClass('open');
+  $(".note-panel-open-btn").click(function () {
+    $(".note-panel").toggleClass("open");
   });
-  $('.note-panel-close-btn').click(function () {
-    $('.note-panel').toggleClass('open');
+  $(".note-panel-close-btn").click(function () {
+    $(".note-panel").toggleClass("open");
   });
 });
+
+const delay = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

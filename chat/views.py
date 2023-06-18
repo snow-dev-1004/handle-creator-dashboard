@@ -9,10 +9,20 @@ def dashboard_view(request):
     return render(request, 'chat/dashboard.html')
 
 @login_required
-def chat_view(request):
+def chat_view(request):    
+    chats = models.Chat.objects.filter(user=request.user.id).order_by("-datetime")
+    chat_list = list(chats)
+    sorted_chats = sorted(chat_list, key=lambda chat: chat.datetime)
+    
     if request.method=='POST': 
         message = request.POST.get('message')
-        ai_message = generate_response(message)
+        
+        message_list = [chat.message for chat in sorted_chats]
+        conversion_history = ''.join(message_list)
+        if conversion_history == '':
+            conversion_history = "You are Handlechat, a AI support of Handlechat company"
+        
+        ai_message = generate_response(conversion_history + message)
         
         new_user_chat = models.Chat(message=message,sender=0,user=request.user)
         new_user_chat.save()
@@ -24,10 +34,6 @@ def chat_view(request):
             "message": "Add the text in the database successfully!", 
             "data": ai_message
         })
-        
-    chats = models.Chat.objects.filter(user=request.user.id).order_by("-datetime")
-    chat_list = list(chats)
-    sorted_chats = sorted(chat_list, key=lambda chat: chat.datetime)
     notebook = models.Note.objects.filter(user=request.user.id).first()
     return render(request, 'chat/chat.html', {
         'chats': sorted_chats,
