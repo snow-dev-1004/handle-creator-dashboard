@@ -1,8 +1,10 @@
+{% load static %}
+
 <nav class="navbar navbar-expand-lg sticky-bottom-reached">
   <div class="container">
     <a class="navbar-brand" href="{% url 'home' %}">
-      <i class="navbar-brand-icon bi-book me-2"></i>
-      <span>Handle</span>
+      <img class="navbar-brand-icon me-2" src="{% static 'images/full-logo.svg' %}" />
+      {% comment %} <span>Handle</span> {% endcomment %}
     </a>
 
     {% comment %}
@@ -33,11 +35,11 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-lg-auto me-lg-4">
         {% if user.is_authenticated %}
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link nav-home" href="{% url 'home' %}">Home</a>
-        </li>
+        </li> {% endcomment %}
         <li class="nav-item">
-          <a class="nav-link nav-dashboard" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="nav-link nav-dashboard" href="{% url 'dashboard' %}">Welcome</a>
         </li>
         <li class="nav-item">
           <a class="nav-link nav-chat" href="{% url 'chat' %}">Message</a>

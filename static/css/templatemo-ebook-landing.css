@@ -20,7 +20,7 @@ https://templatemo.com/tm-588-ebook-landing
   --p-color:                      #717275;
   --link-hover-color:             #E76F51;
 
-  --body-font-family:             'Unbounded', sans-serif;
+  --body-font-family:             'Roboto', sans-serif;
 
   --h1-font-size:                 42px;
   --h2-font-size:                 36px;
@@ -438,15 +438,11 @@ strong {
 }
 
 .navbar-brand-icon {
-  background: var(--secondary-color);
-  border-radius: var(--border-radius-large);
   display: inline-block;
   vertical-align: top;
   color: var(--white-color);
   font-size: var(--h6-font-size);
-  width: 40px;
   height: 40px;
-  line-height: 40px;
   text-align: center;
   position: relative;
 }
