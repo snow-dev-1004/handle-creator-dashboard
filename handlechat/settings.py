@@ -20,6 +20,11 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR=os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR, 'static'),
+]
 MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 
 
@@ -30,9 +35,9 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 SECRET_KEY = 'django-insecure-0uv=er3$abn=h2o03mg1mq=ol_eig@!nhu&92&m&n*m5@h$vdl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['54.145.253.4', '127.0.0.1']
 
 
 # Application definition
@@ -46,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'chat',
-    'compressor',
     'django.contrib.humanize'
 ]
 
@@ -130,12 +134,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
-STATICFILES_DIRS=[
-    STATIC_DIR,
-]
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -159,7 +157,7 @@ COMPRESS_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_FINDERS = (
     # 'django.contrib.staticfiles.finders.FileSystemFinder',
     # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    # 'compressor.finders.CompressorFinder',
 )
 
 # For file mode
