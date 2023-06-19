@@ -33,7 +33,7 @@ $(document).ready(function () {
     		<div
     			class="msg-img"
     			style="
-    				background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);
+    				background-image: url(${userAvatar});
     			"
     		></div>
     		<div class="msg-bubble">
@@ -66,7 +66,7 @@ $(document).ready(function () {
     				<div
     					class="msg-img"
     					style="
-    						background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);
+    						background-image: url(${botAvatar});
     					"
     				></div>
     				<div class="msg-bubble">
