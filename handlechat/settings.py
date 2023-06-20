@@ -37,7 +37,7 @@ SECRET_KEY = os.getenv('DJANGO_SECREAT_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['creator.askhandle.com/', '44.211.157.181', '127.0.0.1']
+ALLOWED_HOSTS = ['creator.askhandle.com', '3.83.128.46', '127.0.0.1']
 
 
 # Application definition
